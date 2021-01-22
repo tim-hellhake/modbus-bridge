@@ -1,0 +1,85 @@
+{
+  "manifest_version": 1,
+  "id": "modbus-bridge",
+  "name": "Modbus Bridge",
+  "short_name": "Modbus",
+  "version": "0.1.0",
+  "description": "Expose your devices to modbus clients",
+  "homepage_url": "https://github.com/tim-hellhake/modbus-bridge#readme",
+  "license": "MPL-2.0",
+  "author": "Tim Hellhake",
+  "gateway_specific_settings": {
+    "webthings": {
+      "exec": "{nodeLoader} {path}",
+      "strict_min_version": "1.0.0",
+      "strict_max_version": "*",
+      "primary_type": "adapter"
+    }
+  },
+  "options": {
+    "default": {
+      "port": 42337
+    },
+    "schema": {
+      "type": "object",
+      "required": [
+        "accessToken",
+        "port"
+      ],
+      "properties": {
+        "accessToken": {
+          "type": "string",
+          "title": "The access token for the gateway"
+        },
+        "port": {
+          "type": "integer",
+          "title": "The port of the webserver for the modbus endpoint"
+        },
+        "addressMappings": {
+          "type": "array",
+          "title": "List of device address mappings",
+          "items": {
+            "type": "object",
+            "title": "Device address mapping",
+            "required": [
+              "deviceId",
+              "unitID"
+            ],
+            "properties": {
+              "deviceId": {
+                "type": "string",
+                "title": "Id of the device"
+              },
+              "unitID": {
+                "type": "number",
+                "title": "Modbus unit id of the device"
+              },
+              "properties": {
+                "type": "array",
+                "title": "List of property address mappings",
+                "items": {
+                  "type": "object",
+                  "title": "Property address mapping",
+                  "required": [
+                    "propertyName",
+                    "address"
+                  ],
+                  "properties": {
+                    "propertyName": {
+                      "type": "string",
+                      "title": "Name of the property"
+                    },
+                    "address": {
+                      "type": "number",
+                      "title": "Modbus address of the property"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

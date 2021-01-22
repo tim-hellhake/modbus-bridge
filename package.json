@@ -1,0 +1,46 @@
+{
+  "name": "modbus-bridge",
+  "display_name": "Modbus Bridge",
+  "version": "0.1.0",
+  "description": "Expose your devices to modbus clients",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "build": "node generate-config-interfaces.js && tsc -p ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tim-hellhake/modbus-bridge.git"
+  },
+  "author": "Tim Hellhake",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/tim-hellhake/modbus-bridge/issues"
+  },
+  "homepage": "https://github.com/tim-hellhake/modbus-bridge#readme",
+  "files": [
+    "LICENSE",
+    "SHA256SUMS",
+    "lib/index.js",
+    "lib/modbus-bridge.js",
+    "lib/modbus-store.js",
+    "manifest.json"
+  ],
+  "dependencies": {
+    "modbus-serial": "^8.0.1",
+    "websocket": "^1.0.33",
+    "webthings-client": "3.0.0"
+  },
+  "devDependencies": {
+    "@types/websocket": "^1.0.1",
+    "@types/ws": "^7.4.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "eslint": "^7.18.0",
+    "gateway-addon": "^1.0.0",
+    "json-schema-to-typescript": "^10.1.3",
+    "typescript": "^4.1.3"
+  }
+}
