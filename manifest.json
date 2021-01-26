@@ -35,6 +35,10 @@
           "type": "integer",
           "title": "The port of the webserver for the modbus endpoint"
         },
+        "debug": {
+          "type": "boolean",
+          "title": "Enable debug logs"
+        },
         "addressMappings": {
           "type": "array",
           "title": "List of device address mappings",

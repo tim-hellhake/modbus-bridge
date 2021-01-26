@@ -11,6 +11,8 @@ import {Config,
   PropertyAddressMapping} from './config';
 
 export class ModbusStore {
+    private debug = false;
+
     private addressMappings: ListOfDeviceAddressMappings = [];
 
     private deviceState: Record<number, Record<number, boolean | number>> = {};
@@ -22,6 +24,7 @@ export class ModbusStore {
       const config = <Config><unknown> await db.loadConfig();
       await db.close();
 
+      this.debug = config.debug ?? false;
       this.addressMappings = config.addressMappings ?? [];
     }
 
@@ -141,6 +144,11 @@ export class ModbusStore {
       }
 
       this.deviceState[unitID][address] = value;
+
+      if (this.debug) {
+        // eslint-disable-next-line max-len
+        console.log(`The value of ${deviceId} (${unitID}) ${propertyName} (${address}) is now ${value}`);
+      }
     }
 
     async getBool(unitID: number, address: number): Promise<boolean> {
