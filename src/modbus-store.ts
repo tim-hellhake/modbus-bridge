@@ -175,11 +175,23 @@ export class ModbusStore {
       const deviceState = this.deviceState[unitID];
 
       if (!deviceState) {
-        throw new Error(`No device with unitID ${unitID} known`);
+        let message = `No device with unitID ${unitID} known`;
+
+        if (this.debug) {
+          message += ` in ${JSON.stringify(this.deviceState)}`;
+        }
+
+        throw new Error(message);
       }
 
       if (!deviceState[address]) {
-        throw new Error(`No property with address ${address} known`);
+        let message = `No property with address ${address} known`;
+
+        if (this.debug) {
+          message += ` in ${JSON.stringify(deviceState)}`;
+        }
+
+        throw new Error(message);
       }
 
       return deviceState[address];
