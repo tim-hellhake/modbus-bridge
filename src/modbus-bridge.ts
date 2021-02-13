@@ -30,17 +30,49 @@ export class ModbusBridge extends Adapter {
       this.connectToGateway();
 
       const handler: IServiceVector = {
-        getCoil: (addr: number, unitID: number) => {
-          return this.modbusStore.getBool(unitID, addr);
+        getCoil: async (addr: number, unitID: number) => {
+          try {
+            const value = await this.modbusStore.getBool(unitID, addr);
+            console.log(`Read coil for ${unitID} ${addr}: ${value}`);
+            return value;
+          } catch (e) {
+            console.log(`Could not read coil for ${unitID} ${addr}: ${e}`);
+            throw e;
+          }
         },
-        getDiscreteInput: (addr: number, unitID: number) => {
-          return this.modbusStore.getBool(unitID, addr);
+        getDiscreteInput: async (addr: number, unitID: number) => {
+          try {
+            const value = await this.modbusStore.getBool(unitID, addr);
+            console.log(`Read discrete input for ${unitID} ${addr}: ${value}`);
+            return value;
+          } catch (e) {
+            // eslint-disable-next-line max-len
+            console.log(`Could not read discrete input for ${unitID} ${addr}: ${e}`);
+            throw e;
+          }
         },
-        getInputRegister: (addr: number, unitID: number) => {
-          return this.modbusStore.getInteger(unitID, addr);
+        getInputRegister: async (addr: number, unitID: number) => {
+          try {
+            const value = await this.modbusStore.getInteger(unitID, addr);
+            console.log(`Read input register for ${unitID} ${addr}: ${value}`);
+            return value;
+          } catch (e) {
+            // eslint-disable-next-line max-len
+            console.log(`Could not read input register for ${unitID} ${addr}: ${e}`);
+            throw e;
+          }
         },
-        getHoldingRegister: (addr: number, unitID: number) => {
-          return this.modbusStore.getInteger(unitID, addr);
+        getHoldingRegister: async (addr: number, unitID: number) => {
+          try {
+            const value = await this.modbusStore.getInteger(unitID, addr);
+            // eslint-disable-next-line max-len
+            console.log(`Read holding register for ${unitID} ${addr}: ${value}`);
+            return value;
+          } catch (e) {
+            // eslint-disable-next-line max-len
+            console.log(`Could not read holding register for ${unitID} ${addr}: ${e}`);
+            throw e;
+          }
         },
       };
 
