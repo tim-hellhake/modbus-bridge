@@ -26,6 +26,10 @@ export class ModbusStore {
 
       this.debug = config.debug ?? false;
       this.addressMappings = config.addressMappings ?? [];
+
+      if (this.debug) {
+        console.log(`Loaded ${JSON.stringify(this.addressMappings)}`);
+      }
     }
 
     private async save(): Promise<void> {
