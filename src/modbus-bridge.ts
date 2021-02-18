@@ -112,6 +112,9 @@ export class ModbusBridge extends Adapter {
       webThingsClient.on('propertyChanged', async (deviceId, key, value) => {
         if (typeof value === 'boolean' || typeof value === 'number') {
           await this.modbusStore.put(deviceId, key, value);
+        } else if (this.config.debug) {
+          // eslint-disable-next-line max-len
+          console.log(`Ignoring update ${JSON.stringify({deviceId, key, value})} because the type '${typeof value}' is not supported`);
         }
       });
     }
