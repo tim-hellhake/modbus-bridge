@@ -188,7 +188,7 @@ export class ModbusStore {
         throw new Error(message);
       }
 
-      if (!deviceState[address]) {
+      if (typeof deviceState[address] === 'undefined') {
         let message = `No property with address ${address} known`;
 
         if (this.debug) {
