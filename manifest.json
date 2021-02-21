@@ -3,7 +3,7 @@
   "id": "modbus-bridge",
   "name": "Modbus Bridge",
   "short_name": "Modbus",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Expose your devices to modbus clients",
   "homepage_url": "https://github.com/tim-hellhake/modbus-bridge#readme",
   "license": "MPL-2.0",

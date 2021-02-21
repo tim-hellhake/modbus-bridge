@@ -1,7 +1,7 @@
 {
   "name": "modbus-bridge",
   "display_name": "Modbus Bridge",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Expose your devices to modbus clients",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
