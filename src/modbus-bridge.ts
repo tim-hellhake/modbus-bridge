@@ -9,6 +9,7 @@ import {WebThingsClient} from 'webthings-client';
 import {Config} from './config';
 import {IServiceVector, ServerTCP} from 'modbus-serial';
 import {ModbusStore} from './modbus-store';
+import {Property} from 'webthings-client/lib/property';
 
 export class ModbusBridge extends Adapter {
     private modbusStore: ModbusStore = new ModbusStore();
@@ -106,21 +107,32 @@ export class ModbusBridge extends Adapter {
         accessToken,
       } = this.config;
 
-      const webThingsClient = await WebThingsClient.local(accessToken);
-      await webThingsClient.connect();
+      const webThingsClient =
+      await WebThingsClient.local(accessToken as string);
+      const devices = await webThingsClient.getDevices();
 
-      webThingsClient.on('propertyChanged', async (deviceId, key, value) => {
-        if (typeof value === 'boolean' || typeof value === 'number') {
-          try {
-            await this.modbusStore.put(deviceId, key, value);
-          } catch (e) {
+      for (const device of devices) {
+        const deviceId = device.id();
+        await device.connect();
+        // eslint-disable-next-line max-len
+        console.log(`Successfully connected to ${device.description.title} (${deviceId})`);
+
+        // eslint-disable-next-line max-len
+        device.on('propertyChanged', async (property: Property, value: unknown) => {
+          const key = property.name;
+
+          if (typeof value === 'boolean' || typeof value === 'number') {
+            try {
+              await this.modbusStore.put(deviceId, key, value);
+            } catch (e) {
+              // eslint-disable-next-line max-len
+              console.log(`Could not save update ${JSON.stringify({deviceId, key, value})}: ${e}`);
+            }
+          } else if (this.config.debug) {
             // eslint-disable-next-line max-len
-            console.log(`Could not save update ${JSON.stringify({deviceId, key, value})}: ${e}`);
+            console.log(`Ignoring update ${JSON.stringify({deviceId, key, value})} because the type '${typeof value}' is not supported`);
           }
-        } else if (this.config.debug) {
-          // eslint-disable-next-line max-len
-          console.log(`Ignoring update ${JSON.stringify({deviceId, key, value})} because the type '${typeof value}' is not supported`);
-        }
-      });
+        });
+      }
     }
 }
