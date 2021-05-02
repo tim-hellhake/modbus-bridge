@@ -11,7 +11,8 @@
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -59,16 +60,10 @@
         "mode": "strict"
       }
     ],
-    "keyword-spacing": [
-      "error",
-      {
-        "after": true,
-        "before": true
-      }
-    ],
+    "@typescript-eslint/keyword-spacing": "off",
     "linebreak-style": ["error", "unix"],
     "lines-between-class-members": ["error", "always"],
-    "max-len": ["error", 80],
+    "max-len": ["error", 100],
     "multiline-ternary": ["error", "always-multiline"],
     "no-console": 0,
     "no-duplicate-imports": "error",
@@ -94,7 +89,7 @@
     "no-trailing-spaces": "error",
     "no-undefined": "error",
     "no-unmodified-loop-condition": "error",
-    "no-unused-vars": [
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "argsIgnorePattern": "^_",
@@ -114,7 +109,7 @@
         "consistent": true
       }
     ],
-    "object-curly-spacing": ["error", "never"],
+    "object-curly-spacing": ["error", "always"],
     "object-property-newline": [
       "error",
       {
@@ -151,7 +146,7 @@
     "space-before-function-paren": [
       "error",
       {
-        "anonymous": "never",
+        "anonymous": "always",
         "asyncArrow": "always",
         "named": "never"
       }
